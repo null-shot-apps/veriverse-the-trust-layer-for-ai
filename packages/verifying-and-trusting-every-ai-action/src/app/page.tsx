@@ -35,7 +35,13 @@ export default function VeriVerse() {
   const [selectedAgent, setSelectedAgent] = useState(availableAgents[0]);
   const [input, setInput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<{
+    output: string;
+    explanation: string[];
+    signature: string;
+    timestamp: string;
+    verificationStatus: string;
+  } | null>(null);
 
   const runAgent = async () => {
     if (!input.trim()) return;
@@ -212,6 +218,7 @@ export default function VeriVerse() {
     </div>
   );
 }
+
 
 
 

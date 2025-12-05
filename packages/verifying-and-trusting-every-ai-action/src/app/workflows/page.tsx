@@ -47,8 +47,18 @@ interface WorkflowStep {
   signature?: string;
 }
 
+interface WorkflowTemplate {
+  id: string;
+  name: string;
+  description: string;
+  steps: Array<{
+    agent: string;
+    task: string;
+  }>;
+}
+
 export default function WorkflowComposer() {
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState<WorkflowTemplate | null>(null);
   const [customWorkflow, setCustomWorkflow] = useState<WorkflowStep[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -123,7 +133,7 @@ export default function WorkflowComposer() {
     setIsRunning(false);
   };
 
-  const loadTemplate = (template) => {
+  const loadTemplate = (template: WorkflowTemplate) => {
     const workflowSteps = template.steps.map((step, index) => ({
       id: `template-${index}`,
       agentId: availableAgents.find(a => a.name === step.agent)?.id || availableAgents[0].id,
@@ -318,3 +328,6 @@ export default function WorkflowComposer() {
     </div>
   );
 }
+
+
+
